@@ -1,21 +1,20 @@
-name: Deploy Website
-
+name: Despliege Continuo
 on: [push]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: Deploy to surge
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
 
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          domain: 'isael.surge.sh'
-          project: C:\Users\Isael\Desktop\practica-devops\.
-          login: ${{ secrets.surge_login }}
-          token: ${{ secrets.surge_token }}
-          
-      - run: npm install -g surge
-      - run: surge . ${{ secrets.SURGE_LOGIN }} --token ${{ secrets.SURGE_TOKEN }}
+            - run: echo "Configurando NodeJs"
+            - name: Setup NodeJs
+                uses: actions/setup-node@v1
+                with: 
+                node-version: 12.x
+
+            - run: npm install -g surge
+            - run: echo "Desplegando Sitio Web"
+            - run: surge ./ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN}}
+
+            - run: echo "Please visit --> ${{ secrets.SURGE_LOGIN}}"
