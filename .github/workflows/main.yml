@@ -17,4 +17,5 @@ jobs:
             - run: echo "Desplegando Sitio Web"
             - run: surge ./ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN}}
 
-            - run: echo "Please visit --> ${{ secrets.SURGE_LOGIN}}"
+            - run: echo "Visitar el sitio --> ${{ secrets.SURGE_DOMAIN}}"
+
